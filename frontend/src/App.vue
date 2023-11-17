@@ -17,12 +17,12 @@ const items = ref([
   {
     label: 'Blog',
     icon: 'pi pi-fw pi-book',
-    route: '/calendar'
+    route: '/blog'
   },
   {
     label: 'Projects',
     icon: 'pi pi-fw pi-github',
-    route: '/documentation'
+    route: '/projects'
   },
   {
     label: 'Contact',
