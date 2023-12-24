@@ -45,6 +45,9 @@ const theme = usePassThrough(
         card: {
             root: {
                 class: ['bg-white','shadow-2xl','border-solid border-4 slate-950','rounded-md']
+            },
+            subtitle: {
+                class: ["text-black"]
             }
         }
     },
