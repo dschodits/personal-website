@@ -1,6 +1,7 @@
 
 use rocket::{
     serde::{json::Json},
+    http::{Status}
 };
 
 
@@ -15,15 +16,15 @@ use crate::util::definitions;
 
 #[get("/blogs")]
 #[allow(dead_code)]
-async fn get_all_blogs() -> Result<Json<Vec<definitions::Blog>>, String> {
+async fn get_all_blogs() -> Result<Json<Vec<definitions::Blog>>, Status> {
     let mut output = Vec::new();
 
     let mut test = read_dir("../content/test/").await.unwrap();
     while let Some(item) = test.next_entry().await.unwrap() {
         let entry = file_parser::get_file_object_from_path(item.path());
         match entry {
-            Some(entry_value) => output.push(entry_value),
-            None => continue,
+            Ok(entry_value) => output.push(entry_value),
+            Err(_fehler) => return Err(Status::NotFound)
         }
     }
     print!("{:?}", output);
