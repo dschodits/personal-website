@@ -23,7 +23,7 @@ defineProps({
 <template>
     <div class="flex flex-row justify-center">
 
-        <Card style="width: 25em">
+        <Card style="width: 25em" class="shadow-lg shadow-gray-600">
             <template #header>
                 <img alt="user header" :src="picture" />
             </template>
