@@ -25,7 +25,9 @@ import Card from 'primevue/card';
           <template #title> About me </template>
           <template #content>
             <p class="m-0">
-              I am Daymon Schodits, born and resident in Vienna.  
+              I am Daymon Schodits, born and resident in Vienna. I studied IT at TGM, a higher technical institution, 
+              which offers advanced technical education in fields like engineering, IT, and electronics. 
+              From a young age I was astounded by computers and information technology.
             </p>
           </template>
 
@@ -33,13 +35,10 @@ import Card from 'primevue/card';
       </div>
       <div class="flex flex-row lg:justify-start text-left">
         <Card class="lg:w-2/3">
-          <template #title> Simple Card </template>
+          <template #title> Present </template>
           <template #content>
             <p class="m-0">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae
-              numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse,
-              cupiditate neque
-              quas!
+              Starting in October I will begin my studies at TU Munich, to further expand my IT skills. Currently I am open for work in IT and I am also available for participation in IT projects.
             </p>
           </template>
 
