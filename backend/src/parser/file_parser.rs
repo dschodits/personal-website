@@ -1,16 +1,26 @@
-use std::io::{BufRead, BufReader, Result, Seek};
-use std::{fs::File};
-
-
+use std::io::{BufRead, BufReader, Result, Read};
+use std::fs::File;
 use chrono::{DateTime, Utc};
 use safe_path::scoped_join;
 use crate::util::definitions;
-
-pub fn get_file_object_from_path(filepath: &str) -> Result<definitions::BlogPreview> {
+pub fn get_blog_from_path(filepath: &str) -> Result<definitions::Blog>{
     let input = File::open(scoped_join(definitions::FILEPATH, filepath)?)?;
-    let modified_date: DateTime<Utc> = get_modified_from_file(&input)?;
+    let date: String = get_modified_from_file(&input)?.to_string();
     let mut reader = BufReader::new(input);
-    let (title,preview) = get_title_and_preview_from_reader(&mut reader)?;
+    let title: String = get_title_from_reader(&mut reader)?;
+    let mut content:String = String::new();
+    let _ = reader.read_to_string(&mut content);
+    let blog = definitions::Blog {
+        title: title,
+        content: content,
+        date: date,
+    };
+    Ok(blog)
+}
+pub fn get_file_object_from_path(filepath: &str) -> Result<definitions::BlogPreview> {
+    let mut input = File::open(scoped_join(definitions::FILEPATH, filepath)?)?;
+    let modified_date: DateTime<Utc> = get_modified_from_file(&input)?;
+    let (title,preview) = get_title_and_preview_from_file(&mut input)?;
     let blog = definitions::BlogPreview {
         title: title.to_string(),
         preview: preview.to_string(),
@@ -22,13 +32,16 @@ pub fn get_modified_from_file(file: &File) -> Result<DateTime<Utc>>{
     Ok(file.metadata()?.modified()?.into())
 }
 pub fn get_title_from_reader(reader: &mut BufReader<File>) -> Result<String>{
+
     let mut head_line = String::new();
     let _ = reader.read_line(&mut head_line)?;
     //get Head Title and the reset buffer
     let title: String = head_line[2..head_line.len()].trim().into();
     Ok(title)
 }
-pub fn get_title_and_preview_from_reader(reader: &mut BufReader<File>) -> Result<(String,String)>{
+pub fn get_title_and_preview_from_file(input: &mut File) -> Result<(String,String)>{
+    let mut reader = BufReader::new(input);
+
     let mut head_line = String::new();
     let _ = reader.read_line(&mut head_line)?;
     let title: String = head_line[2..head_line.len()].trim().into();
