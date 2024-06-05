@@ -24,6 +24,7 @@ async function fetchData(){
                 :title="blog.title"
                 :date="blog.date"
                 :preview="blog.preview"
+                :id="blog.id"
                 >
 
             </BlogElement>
