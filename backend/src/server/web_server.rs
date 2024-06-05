@@ -34,9 +34,9 @@ async fn get_all_blogs() -> Result<Json<Vec<definitions::BlogPreview>>, Status> 
 
 #[get("/blog/<blog_name>")]
 #[allow(dead_code)]
-async fn get_specific_blog(blog_name: &str) -> Result<Json<definitions::BlogPreview>, Status> {
+async fn get_specific_blog(blog_name: &str) -> Result<Json<definitions::Blog>, Status> {
     print!("HELP");
-    let entry = file_parser::get_file_object_from_path(blog_name);
+    let entry = file_parser::get_blog_from_path(blog_name);
         match entry {
             Ok(entry_value) => return Ok(Json(entry_value)),
             Err(_fehler) => return Err(Status::NotFound)
