@@ -18,7 +18,7 @@ pub fn content_to_html(content: &str) -> Result<String>{
 }
 fn get_html_heading(heading: &str,title: &str) -> String{
     let size = heading.len();
-    return format!("<h{size}> {content} </h{size}>",size=size,content=title)
+    return format!("<strong><h{size}> {content} </h{size}> </strong>",size=size,content=title)
 }
 fn get_paragraph(content: &str) -> String{
     return format!("<p> {content} </p>");
