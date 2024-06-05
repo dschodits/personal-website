@@ -4,6 +4,13 @@ use rocket::serde::Serialize;
 #[serde(crate = "rocket::serde")]
 pub struct BlogPreview {
     pub title: String,
+    pub preview: String,
+    pub date: String,
+}
+#[derive(Serialize, Debug)]
+#[serde(crate = "rocket::serde")]
+pub struct Blog {
+    pub title: String,
     pub content: String,
     pub date: String,
 }
