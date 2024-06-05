@@ -6,7 +6,7 @@ defineProps({
         required: true
     },
     date: {
-        type: Date,
+        type: Number,
         required: true
     },
     preview: {
@@ -21,7 +21,7 @@ defineProps({
         <template #title> {{ title }} </template>
         <template #subtitle>
             <p class="text-black">
-                {{ date.toLocaleDateString("de-AT", options) }}
+                {{ new Date(date).toLocaleDateString("de-AT", options) }}
             </p>
         </template>
         <template #content>

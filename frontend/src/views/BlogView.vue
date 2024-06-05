@@ -1,5 +1,16 @@
 <script setup>
 import BlogElement from '../components/BlogElement.vue';
+import { ref,watch } from 'vue'
+
+const blogs = ref({});
+fetchData();
+async function fetchData(){
+    var response = await fetch('http://localhost:8000/blogs');
+    blogs.value = (await response.json());    
+    console.log(blogs);
+}
+
+
 </script>
 
 <template>
@@ -8,9 +19,14 @@ import BlogElement from '../components/BlogElement.vue';
             <div class="flex justify-center mb-4">
                 <p class="text-2xl font-black">Here are my blogs</p>
             </div>
-            <BlogElement title="TITEL" :date="new Date()"
-                preview="BLOG INHALT BLOG INHALT BLOG INHALT BLOG INHALT BLOG INHALT BLOG INHALT BLOG INHALT" />
-            <BlogElement title="TITEL" :date="new Date()" preview="BLOG INHALT" />
+            <BlogElement 
+                v-for="blog in blogs"
+                :title="blog.title"
+                :date="blog.date"
+                :preview="blog.preview"
+                >
+
+            </BlogElement>
         </div>
     </div>
 </template>

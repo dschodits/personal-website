@@ -6,7 +6,7 @@ use safe_path::scoped_join;
 use crate::util::definitions;
 pub fn get_blog_from_path(filepath: &str) -> Result<definitions::Blog>{
     let mut input = get_file_from_relative_path(&String::from(filepath))?;
-    let date: String = get_modified_from_file(&input)?.to_string();
+    let date: DateTime<Utc> = get_modified_from_file(&input)?;
     let mut reader = BufReader::new(input);
     let title: String = get_title_from_reader(&mut reader)?;
     let mut content:String = String::new();
@@ -14,7 +14,7 @@ pub fn get_blog_from_path(filepath: &str) -> Result<definitions::Blog>{
     let blog = definitions::Blog {
         title: title,
         content: content,
-        date: date,
+        date: date.timestamp_millis(),
     };
     Ok(blog)
 }
@@ -25,7 +25,7 @@ pub fn get_file_object_from_path(filepath: &str) -> Result<definitions::BlogPrev
     let blog = definitions::BlogPreview {
         title: title.to_string(),
         preview: preview.to_string(),
-        date: modified_date.to_string(),
+        date: modified_date.timestamp_millis(),
     };
     Ok(blog)
 }
