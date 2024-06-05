@@ -6,6 +6,7 @@ pub struct BlogPreview {
     pub title: String,
     pub preview: String,
     pub date: i64,
+    pub id: String
 }
 #[derive(Serialize, Debug)]
 #[serde(crate = "rocket::serde")]

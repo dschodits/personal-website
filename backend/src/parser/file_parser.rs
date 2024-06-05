@@ -22,10 +22,12 @@ pub fn get_file_object_from_path(filepath: &str) -> Result<definitions::BlogPrev
     let mut input = get_file_from_relative_path(&String::from(filepath))?;
     let modified_date: DateTime<Utc> = get_modified_from_file(&input)?;
     let (title,preview) = get_title_and_preview_from_file(&mut input)?;
+    
     let blog = definitions::BlogPreview {
         title: title.to_string(),
         preview: preview.to_string(),
         date: modified_date.timestamp_millis(),
+        id: Path::new(filepath).file_stem().unwrap().to_str().unwrap().into()
     };
     Ok(blog)
 }
