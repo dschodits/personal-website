@@ -15,8 +15,8 @@ const router = createRouter({
       component: ContactView
     },
     {
-      path: '/blog',
-      name: 'blog',
+      path: '/blogs',
+      name: 'blogs',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -29,6 +29,10 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/ProjectView.vue')
+    },{
+      path: '/blog/:id',
+      name: 'blog',
+      component: () => import('../views/SingleBlogView.vue')
     }
   ]
 })
