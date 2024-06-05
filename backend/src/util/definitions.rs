@@ -15,3 +15,4 @@ pub struct Blog {
     pub date: String,
 }
 pub static FILEPATH: &str = "../content/test/";
+pub static FILESUFFIX: &str = ".md";
