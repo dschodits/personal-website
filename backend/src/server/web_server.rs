@@ -9,7 +9,7 @@ use tokio::{
     fs::{*},
 };
 
-use crate::parser::file_parser;
+use crate::parser::{file_parser, html_parser};
 use crate::util::definitions;
 
 
@@ -36,9 +36,13 @@ async fn get_all_blogs() -> Result<Json<Vec<definitions::BlogPreview>>, Status> 
 #[allow(dead_code)]
 async fn get_specific_blog(blog_name: &str) -> Result<Json<definitions::Blog>, Status> {
     print!("HELP");
-    let entry = file_parser::get_blog_from_path(blog_name);
+    let mut entry = file_parser::get_blog_from_path(blog_name);
+    
         match entry {
-            Ok(entry_value) => return Ok(Json(entry_value)),
+            Ok(mut entry_value) => {
+                entry_value.content = html_parser::content_to_html(&entry_value.content).unwrap();
+                return Ok(Json(entry_value))
+            },
             Err(_fehler) => return Err(Status::NotFound)
         }
 
