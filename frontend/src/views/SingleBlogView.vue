@@ -20,10 +20,10 @@ async function fetchData(){
     <div class="flex flex-row justify-center">
         <div class="flex flex-col">
             <div class="flex justify-center mb-4">
-                <p class="text-2xl font-black">{{ blog.title }}</p>
+                <p class="text-6xl font-black">{{ blog.title }}</p>
                 
             </div>
-            <p class="text-black" v-if="blog.date">
+            <p class="text-black italic text-sm pb-5" v-if="blog.date">
                     {{ new Date(blog.date).toLocaleDateString("de-AT", options) }}
             </p>
             <div v-html="blog.content"></div>
