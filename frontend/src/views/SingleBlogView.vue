@@ -10,7 +10,6 @@ fetchData();
 async function fetchData(){
     var response = await fetch('http://localhost:8000/blog/'+route.params.id);
     blog.value = (await response.json());    
-    console.log(blog);
 }
 
 
@@ -24,7 +23,7 @@ async function fetchData(){
                 
             </div>
             <p class="text-black italic text-sm pb-5" v-if="blog.date">
-                    {{ new Date(blog.date).toLocaleDateString("de-AT", options) }}
+                    {{ new Date(blog.date).toLocaleDateString("en-AT", options) }}
             </p>
             <div v-html="blog.content"></div>
             

@@ -27,7 +27,7 @@ defineProps({
             <template #title> {{ title }} </template>
             <template #subtitle>
                 <p class="text-black">
-                    {{ new Date(date).toLocaleDateString("de-AT", options) }}
+                    {{ new Date(date).toLocaleDateString("en-AT", options) }}
                 </p>
             </template>
             <template #content>
