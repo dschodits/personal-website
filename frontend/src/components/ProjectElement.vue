@@ -16,6 +16,14 @@ defineProps({
         type: String,
         required: true
     },
+    github: {
+        type: String,
+        required: false
+    },
+    website: {
+        type: String,
+        required: false
+    }
 
 }) 
 </script>
@@ -23,9 +31,12 @@ defineProps({
 <template>
     <div class="flex flex-row justify-center">
 
-        <Card style="width: 25em" class="shadow-lg shadow-gray-600">
+        <Card class="shadow-lg shadow-gray-600 w-96">
             <template #header>
-                <img alt="user header" :src="picture" />
+                <div class="flex flex-row justify-center max-h-56 min-h-56">
+
+                    <img class="min-h-56" :src="picture" />
+                </div>
             </template>
             <template #title> {{ title }} </template>
             <template #subtitle> {{ subtitle }} </template>
@@ -34,11 +45,14 @@ defineProps({
                     {{ content }}
                 </p>
             </template>
-            <template #footer>
-                <Button icon="pi pi-check" label="Save" />
-                <Button icon="pi pi-check" label="Save" style="margin-left: 0.5em" />
+            <template #footer v-if="github || website">
+                <div class="flex justify-around">
+                    <a v-if="github" :href="github" target="_blank">
+                        <Button icon="pi pi-github" label="Github" severity="secondary" style=""  />
+                    </a>
+                    <Button v-if="website" icon="pi pi-link" label="Website" severity="secondary" style="" />
+                </div>
 
-                <Button icon="pi pi-times" label="Cancel" severity="secondary" style="margin-left: 0.5em" />
             </template>
         </Card>
     </div>
