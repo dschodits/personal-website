@@ -7,7 +7,6 @@ fetchData();
 async function fetchData(){
     var response = await fetch('http://localhost:8000/blogs');
     blogs.value = (await response.json());    
-    console.log(blogs);
 }
 
 
