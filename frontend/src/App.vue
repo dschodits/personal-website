@@ -41,6 +41,7 @@ watch(
   },
   { immediate: true }
 );
+console.log("Hello :)")
 </script>
 
 <template>
