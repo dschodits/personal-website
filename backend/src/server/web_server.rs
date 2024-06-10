@@ -4,9 +4,7 @@ use rocket::{
 };
 
 
-use tokio::{
-    fs::{*},
-};
+
 
 use crate::parser::{file_parser, html_parser};
 use crate::util::definitions;
@@ -16,20 +14,13 @@ use crate::util::definitions;
 #[get("/blogs")]
 #[allow(dead_code)]
 async fn get_all_blogs() -> Result<Json<Vec<definitions::BlogPreview>>, Status> {
-    let mut output = Vec::new();
-
-    let mut test = read_dir(definitions::FILEPATH).await.unwrap();
-    while let Some(item) = test.next_entry().await.unwrap() {
-        let entry = file_parser::get_file_object_from_path(item.file_name().to_str().unwrap());
-        match entry {
-            Ok(entry_value) => output.push(entry_value),
-            Err(_fehler) => return Err(Status::NotFound)
-        }
-    }
-    print!("{:?}", output);
-
-    Ok(Json(output))
+    let previews = file_parser::get_all_blog_previews();
+    match previews {
+        Ok(_out) => return Ok(Json(_out)),
+        Err(_err) => return Err(Status::InternalServerError),
+    }        
 }
+
 
 #[get("/blog/<blog_name>")]
 #[allow(dead_code)]

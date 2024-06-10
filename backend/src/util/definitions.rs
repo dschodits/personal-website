@@ -15,5 +15,6 @@ pub struct Blog {
     pub content: String,
     pub date: i64,
 }
-pub static FILEPATH: &str = "../content/test/";
+pub static FILEPATH: &str = "../content/blogs/";
 pub static FILESUFFIX: &str = ".md";
+pub static FILEEXTENSION: &str = "md";

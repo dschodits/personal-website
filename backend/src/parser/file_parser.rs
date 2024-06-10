@@ -1,10 +1,11 @@
-use std::io::{BufRead, BufReader, Read, Result};
+use std::io::{BufRead, BufReader, Read};
 use std::fs::File;
+use std::{fs, io};
 use std::path::Path;
 use chrono::{DateTime, Utc};
 use safe_path::scoped_join;
 use crate::util::definitions;
-pub fn get_blog_from_path(filepath: &str) -> Result<definitions::Blog>{
+pub fn get_blog_from_path(filepath: &str) -> io::Result<definitions::Blog>{
     let mut input = get_file_from_relative_path(&String::from(filepath))?;
     let date: DateTime<Utc> = get_modified_from_file(&input)?;
     let mut reader = BufReader::new(input);
@@ -18,7 +19,7 @@ pub fn get_blog_from_path(filepath: &str) -> Result<definitions::Blog>{
     };
     Ok(blog)
 }
-pub fn get_file_object_from_path(filepath: &str) -> Result<definitions::BlogPreview> {
+pub fn get_file_object_from_path(filepath: &str) -> io::Result<definitions::BlogPreview> {
     let mut input = get_file_from_relative_path(&String::from(filepath))?;
     let modified_date: DateTime<Utc> = get_modified_from_file(&input)?;
     let (title,preview) = get_title_and_preview_from_file(&mut input)?;
@@ -31,10 +32,35 @@ pub fn get_file_object_from_path(filepath: &str) -> Result<definitions::BlogPrev
     };
     Ok(blog)
 }
-pub fn get_modified_from_file(file: &File) -> Result<DateTime<Utc>>{
+pub fn get_all_blog_previews() -> io::Result<Vec<definitions::BlogPreview>>{
+    let mut output = Vec::new();
+    let mut entries = fs::read_dir(definitions::FILEPATH)?
+        .collect::<Result<Vec<_>, io::Error>>()?;
+    for entry in entries{
+        let path = &entry.path();
+        let extension = Path::new(path).extension();
+        
+        
+        if extension.is_none() {
+            continue;
+        }
+        println!("{:?}", extension.unwrap().to_str());
+        if extension.unwrap().to_str().unwrap() != definitions::FILEEXTENSION {
+            continue;
+        }
+        let preview = get_file_object_from_path(entry.file_name().to_str().unwrap());
+        match preview {
+            Ok(preview_value) => output.push(preview_value),
+            Err(_fehler) => return Err(_fehler)
+        }
+    }
+    Ok(output)
+    
+}
+fn get_modified_from_file(file: &File) -> io::Result<DateTime<Utc>>{
     Ok(file.metadata()?.modified()?.into())
 }
-pub fn get_title_from_reader(reader: &mut BufReader<File>) -> Result<String>{
+fn get_title_from_reader(reader: &mut BufReader<File>) -> io::Result<String>{
 
     let mut head_line = String::new();
     let _ = reader.read_line(&mut head_line)?;
@@ -42,7 +68,7 @@ pub fn get_title_from_reader(reader: &mut BufReader<File>) -> Result<String>{
     let title: String = head_line[2..head_line.len()].trim().into();
     Ok(title)
 }
-pub fn get_title_and_preview_from_file(input: &mut File) -> Result<(String,String)>{
+fn get_title_and_preview_from_file(input: &mut File) -> io::Result<(String,String)>{
     let mut reader = BufReader::new(input);
 
     let mut head_line = String::new();
@@ -53,7 +79,7 @@ pub fn get_title_and_preview_from_file(input: &mut File) -> Result<(String,Strin
     let preview:String = preview_line.trim().into();
     Ok((title,preview))
 }
-pub fn get_file_from_relative_path(mut filepath: &String) -> Result<File>{
+fn get_file_from_relative_path(mut filepath: &String) -> io::Result<File>{
     let mut path = scoped_join(definitions::FILEPATH, filepath)?;
     if Path::new(&path).exists() {
         return Ok(File::open(path)?)
