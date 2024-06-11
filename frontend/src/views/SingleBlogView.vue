@@ -8,7 +8,7 @@ const route = useRoute()
 const blog = ref({});
 fetchData();
 async function fetchData(){
-    var response = await fetch('http://localhost:8000/blog/'+route.params.id);
+    var response = await fetch(import.meta.env.VITE_BACKEND_ADDRESS+'/blog/'+route.params.id);
     blog.value = (await response.json());    
 }
 

@@ -5,7 +5,7 @@ import { ref,watch } from 'vue'
 const blogs = ref({});
 fetchData();
 async function fetchData(){
-    var response = await fetch('http://localhost:8000/blogs');
+    var response = await fetch((import.meta.env.VITE_BACKEND_ADDRESS+'/blogs'));
     blogs.value = (await response.json());    
 }
 
