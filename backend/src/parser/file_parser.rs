@@ -6,7 +6,7 @@ use chrono::{DateTime, Utc};
 use safe_path::scoped_join;
 use crate::util::definitions;
 pub fn get_blog_from_path(filepath: &str) -> io::Result<definitions::Blog>{
-    let mut input = get_file_from_relative_path(&String::from(filepath))?;
+    let input = get_file_from_relative_path(&String::from(filepath))?;
     let date: DateTime<Utc> = get_modified_from_file(&input)?;
     let mut reader = BufReader::new(input);
     let title: String = get_title_from_reader(&mut reader)?;
@@ -34,7 +34,7 @@ pub fn get_file_object_from_path(filepath: &str) -> io::Result<definitions::Blog
 }
 pub fn get_all_blog_previews() -> io::Result<Vec<definitions::BlogPreview>>{
     let mut output = Vec::new();
-    let mut entries = fs::read_dir(definitions::FILEPATH)?
+    let entries = fs::read_dir(definitions::FILEPATH)?
         .collect::<Result<Vec<_>, io::Error>>()?;
     for entry in entries{
         let path = &entry.path();
@@ -44,7 +44,6 @@ pub fn get_all_blog_previews() -> io::Result<Vec<definitions::BlogPreview>>{
         if extension.is_none() {
             continue;
         }
-        println!("{:?}", extension.unwrap().to_str());
         if extension.unwrap().to_str().unwrap() != definitions::FILEEXTENSION {
             continue;
         }
@@ -79,7 +78,7 @@ fn get_title_and_preview_from_file(input: &mut File) -> io::Result<(String,Strin
     let preview:String = preview_line.trim().into();
     Ok((title,preview))
 }
-fn get_file_from_relative_path(mut filepath: &String) -> io::Result<File>{
+fn get_file_from_relative_path(filepath: &String) -> io::Result<File>{
     let mut path = scoped_join(definitions::FILEPATH, filepath)?;
     if Path::new(&path).exists() {
         return Ok(File::open(path)?)
