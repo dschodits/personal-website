@@ -15,7 +15,6 @@ WORKDIR /app
 RUN --mount=type=bind,source=backend/src,target=src \
     --mount=type=bind,source=backend/Cargo.toml,target=Cargo.toml \
     --mount=type=bind,source=backend/Rocket.toml,target=Rocket.toml \
-    --mount=type=bind,source=backend/Cargo.lock,target=Cargo.lock \
     --mount=type=cache,target=/app/target/ \
     --mount=type=cache,target=/usr/local/cargo/registry/ \
     <<EOF
