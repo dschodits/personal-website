@@ -1,4 +1,4 @@
-use std::io::{Result, BufReader};
+use std::io::Result;
 
 pub fn content_to_html(content: &str) -> Result<String>{
     let lines = content.lines();

@@ -1,6 +1,8 @@
 
+use std::net::Ipv4Addr;
+
 use rocket::{
-    fairing::{Fairing, Info, Kind}, http::{Header, Status}, serde::json::Json, Request, Response
+    fairing::{Fairing, Info, Kind}, http::{Header, Status}, serde::json::Json, Config, Request, Response
 };
 
 
@@ -26,7 +28,7 @@ async fn get_all_blogs() -> Result<Json<Vec<definitions::BlogPreview>>, Status> 
 #[allow(dead_code)]
 async fn get_specific_blog(blog_name: &str) -> Result<Json<definitions::Blog>, Status> {
     print!("HELP");
-    let mut entry = file_parser::get_blog_from_path(blog_name);
+    let entry = file_parser::get_blog_from_path(blog_name);
     
         match entry {
             Ok(mut entry_value) => {
@@ -41,10 +43,14 @@ async fn get_specific_blog(blog_name: &str) -> Result<Json<definitions::Blog>, S
 
 #[rocket::main]
 pub async fn start_server() -> Result<(), rocket::Error> {
+    let config = Config {
+        address: Ipv4Addr::new(0,0,0,0).into(),
+        ..Config::release_default()
+    };
     let _rocket = rocket::build()
-        .attach(CORS)
-        .mount("/", routes![get_all_blogs])
-        .mount("/", routes![get_specific_blog])
+        .configure(config)
+        .mount("/api/", routes![get_all_blogs])
+        .mount("/api/", routes![get_specific_blog])
         .ignite().await?
         .launch().await?;
 
