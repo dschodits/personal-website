@@ -1,10 +1,10 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite & npx tailwindcss -i ./src/assets/main.css -o ./src/assets/finished.css --watch",
-    "build": "vite build",
+    "build": "npx tailwindcss -i ./src/assets/main.css -o ./src/assets/finished.css && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
