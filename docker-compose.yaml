@@ -5,7 +5,7 @@ services:
       context: frontend/
       dockerfile: Dockerfile
     ports:
-      - 81:81
+      - 81:80
     networks:
       - network1
   backend:
