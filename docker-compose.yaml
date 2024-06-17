@@ -1,17 +1,19 @@
+
 services:
   web:
     build:
       context: frontend/
       dockerfile: Dockerfile
     ports:
-      - 80:80
-      - 443:443
+      - 81:81
     networks:
       - network1
   backend:
     build:
       context: .
       dockerfile: backend/Dockerfile
+    ports:
+      - 8000:8000
     networks:
       - network1
 networks:

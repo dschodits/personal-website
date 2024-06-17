@@ -5,7 +5,6 @@ RUN npm install
 COPY ./ .
 RUN npm run build
 
-FROM caddy as production-stage
+FROM nginx as production-stage
 RUN mkdir /app
 COPY --from=build-stage /app/dist /app
-COPY Caddyfile /etc/caddy/Caddyfile
