@@ -25,7 +25,7 @@ import Card from 'primevue/card';
           <template #title> About me </template>
           <template #content>
             <p class="m-0">
-              I am Daymon Schodits, born and resident in Vienna. I studied IT at TGM, a higher technical institution, 
+              I am Daymon Schodits, born in Vienna. I studied IT at TGM, a higher technical institution,
               which offers advanced technical education in fields like engineering, IT, and electronics. 
               From a young age I was astounded by computers and information technology.
             </p>
@@ -38,7 +38,7 @@ import Card from 'primevue/card';
           <template #title> Present </template>
           <template #content>
             <p class="m-0">
-              Starting in October I will begin my studies at TU Munich, to further expand my IT skills. Currently I am open for work in IT and I am also available for participation in IT projects.
+              Currently I am studying at the TU Munich, for my Bachelor in Informatic, to further expand my IT skills. Currently I am open for work in IT and I am also available for participation in IT projects.
             </p>
           </template>
 

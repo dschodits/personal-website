@@ -22,7 +22,7 @@ import ContactElement from '../components/ContactElement.vue';
               <Image src="/wien.jpg" width="400" height="400" alt="Image"/>
             </div>
             <div class="flex justify-center">
-              Located in Vienna
+              Born in Vienna
             </div>
           </template>
 
