@@ -50,7 +50,9 @@ defineProps({
                     <a v-if="github" :href="github" target="_blank">
                         <Button icon="pi pi-github" label="Github" severity="secondary" style=""  />
                     </a>
-                    <Button v-if="website" icon="pi pi-link" label="Website" severity="secondary" style="" />
+                    <a v-if="website" :href="website" target="_blank">
+                      <Button v-if="website" icon="pi pi-link" label="Website" severity="secondary" style="" />
+                    </a>
                 </div>
 
             </template>

@@ -4,6 +4,8 @@ import ProjectElement from '../components/ProjectElement.vue';
 
 <template>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 place-content-center">
+        <ProjectElement picture="/drweiser.svg" website="https://www.drweiser.at" title="Rechtsanwalt Dr. Weiser" subtitle="Homepage for a law firm"
+                      content="Just a small Website for a law firm located in Vienna. This Website was made with Wordpress and replaced a very outdated existing website from 2010" />
         <ProjectElement github="https://github.com/dschodits/personal-website" picture="homepage.png" title="Homepage" subtitle="Personal Homepage"
             content="The very website you are looking at right now. This is just a little fun project for myself to get to develop some new skills. I used Rust, Vue3 and TailwindCSS. I personally never used Rust and TailwindCSS before so it was a nice learning experience." />
         <ProjectElement picture="/baeckquem.jpg" title="Baeckquem" subtitle="Bakery Pre-Order System Project"
